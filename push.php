@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Dave Xie <hhxsv5@sina.com>
+ */
 header('Content-Type: text/event-stream');
 header('Cache-Control: no-cache'); // 建议不要缓存SSE数据
 header('Connection: keep-alive');
