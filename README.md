@@ -15,6 +15,6 @@ php -S 127.0.0.1:9001 -t .
 //withCredentials=true: pass the cross-domain cookies to server-side
 var source = new EventSource("http://127.0.0.1:9001/push.php", {withCredentials:true});
 source.addEventListener('new-msg', function(event){
-    console.log(event);
+    console.log(event.data);//get data
 }, false);
 ```
