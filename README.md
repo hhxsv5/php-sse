@@ -20,3 +20,28 @@ source.addEventListener('new-msg', function(event){
     console.log(event.data);//get data
 }, false);
 ```
+
+## Laravel demo
+
+```PHP
+//Action method in the controller
+public function newMsgs()
+{
+    $response = new StreamedResponse();
+    $response->headers->set('Content-Type', 'text/event-stream');
+    $response->headers->set('Cache-Control', 'no-cache');
+    $response->headers->set('Connection', 'keep-alive');
+    $response->headers->set('X-Accel-Buffering', 'no');
+    $response->setCallback(function () {
+        (new SSE())->start(new Update(function () {
+            $id = mt_rand(1, 1000);
+            $newMsgs = [['id' => $id, 'title' => 'title' . $id, 'content' => 'content' . $id]];//get data from database or servcie.
+            if (!empty($newMsgs)) {
+                return json_encode(['newMsgs' => $newMsgs]);
+            }
+            return false;//return false if no new messages
+        }), 'new-msgs');
+    });
+    return $response;
+}
+```
