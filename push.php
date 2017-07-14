@@ -1,26 +1,18 @@
 <?php
-/**
- * @author Dave Xie <hhxsv5@sina.com>
- */
-header('Content-Type: text/event-stream');
-header('Cache-Control: no-cache'); // 建议不要缓存SSE数据
-header('Connection: keep-alive');
+include 'SSE.php';
+include 'Update.php';
+//example: push messages to client
 
-/**
- * Constructs the SSE data format and flushes that data to the client.
- *
- * @param string $id
- *        	Timestamp/id of this connection.
- * @param string $msg
- *        	Line of text that should be transmitted.
- */
-function sendMsg($id, $msg)
-{
-	echo "id: $id", PHP_EOL;
-	echo "data: $msg", PHP_EOL;
-	echo "retry: 5000", PHP_EOL, PHP_EOL;
-	ob_flush();
-	flush();
-}
-$serverTime = time();
-sendMsg($serverTime, 'SERVER TIME: ' . date('Y-m-d h:i:s', $serverTime));
+header('Content-Type: text/event-stream');
+header('Cache-Control: no-cache');
+header('Connection: keep-alive');
+header('X-Accel-Buffering: no');
+
+(new SSE())->start(new Update(function () {
+    $id = mt_rand(1, 1000);
+    $newMsgs = [['id' => $id, 'title' => 'title' . $id, 'content' => 'content' . $id]];//get data from database or servcie.
+    if (!empty($newMsgs)) {
+        return json_encode(['newMsgs' => $newMsgs]);
+    }
+    return false;//return false if no new messages
+}), 'new-msgs');
