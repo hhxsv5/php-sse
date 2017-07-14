@@ -27,7 +27,7 @@ source.addEventListener('new-msg', function(event){
 //Action method in the controller
 public function newMsgs()
 {
-    $response = new StreamedResponse();
+    $response = new \Symfony\Component\HttpFoundation\StreamedResponse();
     $response->headers->set('Content-Type', 'text/event-stream');
     $response->headers->set('Cache-Control', 'no-cache');
     $response->headers->set('Connection', 'keep-alive');
