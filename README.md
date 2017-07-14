@@ -9,7 +9,7 @@ php -S 127.0.0.1:9001 -t .
 
 - Open url `http://127.0.0.1:9001/push.html`
 
-![Demo](./sse.png)
+![Demo](https://raw.githubusercontent.com/hhxsv5/SSE/master/sse.png)
 
 ## Javascript demo
 
