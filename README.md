@@ -31,7 +31,7 @@ public function newMsgs()
     $response->headers->set('Content-Type', 'text/event-stream');
     $response->headers->set('Cache-Control', 'no-cache');
     $response->headers->set('Connection', 'keep-alive');
-    $response->headers->set('X-Accel-Buffering', 'no');
+    $response->headers->set('X-Accel-Buffering', 'no');//Nginx: unbuffered responses suitable for Comet and HTTP streaming applications
     $response->setCallback(function () {
         (new SSE())->start(new Update(function () {
             $id = mt_rand(1, 1000);
