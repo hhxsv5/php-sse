@@ -6,7 +6,7 @@ include 'Update.php';
 header('Content-Type: text/event-stream');
 header('Cache-Control: no-cache');
 header('Connection: keep-alive');
-header('X-Accel-Buffering: no');
+header('X-Accel-Buffering: no');//Nginx: unbuffered responses suitable for Comet and HTTP streaming applications
 
 (new SSE())->start(new Update(function () {
     $id = mt_rand(1, 1000);
