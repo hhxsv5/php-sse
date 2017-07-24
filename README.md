@@ -18,7 +18,7 @@ composer require "hhxsv5/php-sse:~1.0" -vvv
 
 - Run PHP webserver
 ```Bash
-//go into examples folder
+cd examples
 php -S 127.0.0.1:9001 -t .
 ```
 
