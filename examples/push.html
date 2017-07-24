@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SSE example</title>
+    <title>SSE example</title>
 </head>
 <body>
-	<h1>SSE example</h1>
-	<div id="result"></div>
-	<script>
-		if (typeof (EventSource) !== 'undefined') {
-			var source = new EventSource("push.php");
-			source.onopen = function(event) {
-				console.log('onopen', event);
-			};
-			source.onerror = function(event) {
-				console.log('onerror', event);
-			};
-			// source.onmessage = function(event) {
-			// 	document.getElementById("result").innerHTML += event.data + "<br />";
-			// };
-			source.addEventListener('new-msgs', function(event) {
-				document.getElementById("result").innerHTML += event.data + "<br />";
-			});
-		} else {
-			document.getElementById("result").innerHTML = 'Sorry, your browser does not support server-sent events...';
-		}
-	</script>
+<h1>SSE example</h1>
+<div id="result"></div>
+<script>
+    if (typeof (EventSource) !== 'undefined') {
+        var source = new EventSource("push.php");
+        source.onopen = function (event) {
+            console.log('onopen', event);
+        };
+        source.onerror = function (event) {
+            console.log('onerror', event);
+        };
+        // source.onmessage = function(event) {
+        // 	document.getElementById("result").innerHTML += event.data + "<br />";
+        // };
+        source.addEventListener('new-msgs', function (event) {
+            document.getElementById("result").innerHTML += event.data + "<br />";
+        });
+    } else {
+        document.getElementById("result").innerHTML = 'Sorry, your browser does not support server-sent events...';
+    }
+</script>
 </body>
 </html>
