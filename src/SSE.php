@@ -1,5 +1,5 @@
 <?php
-include 'Event.php';
+namespace Hhxsv5\SSE;
 
 class SSE
 {

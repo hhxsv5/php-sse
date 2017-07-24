@@ -1,0 +1,29 @@
+{
+  "name": "hhxsv5/sse",
+  "type": "library",
+  "license": "MIT",
+  "description": "A simple and efficient library implemented server-sent events by PHP.",
+  "keywords": [
+    "php-sse",
+    "sse",
+    "server-sent events"
+  ],
+  "homepage": "https://github.com/hhxsv5/php-sse",
+  "authors": [
+    {
+      "name": "Xie Biao",
+      "email": "hhxsv5@sina.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Hhxsv5\\SSE\\": "src"
+    }
+  }
+}

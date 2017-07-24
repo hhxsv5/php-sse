@@ -1,9 +1,24 @@
-# SSE: Server Sent Event
+PHP SSE: Server-sent Events
+======
 
-## Run demo
+A simple and efficient library implemented server-sent events by PHP.
+
+## Requirements
+
+* PHP 5.4 or later
+
+## Installation via Composer([packagist](https://packagist.org/packages/hhxsv5/php-sse))
+
+```BASH
+composer require "hhxsv5/php-sse:~1.0" -vvv
+```
+
+## Usage
+### Run demo
 
 - Run PHP webserver
 ```Bash
+//go into examples folder
 php -S 127.0.0.1:9001 -t .
 ```
 
@@ -11,7 +26,7 @@ php -S 127.0.0.1:9001 -t .
 
 ![Demo](https://raw.githubusercontent.com/hhxsv5/SSE/master/sse.png)
 
-## Javascript demo
+### Javascript demo
 
 ```Javascript
 //withCredentials=true: pass the cross-domain cookies to server-side
@@ -21,7 +36,7 @@ source.addEventListener('new-msg', function(event){
 }, false);
 ```
 
-## Laravel demo
+### Laravel demo
 
 ```PHP
 //Action method in the controller
@@ -45,3 +60,7 @@ public function newMsgs()
     return $response;
 }
 ```
+
+## License
+
+[MIT](https://github.com/hhxsv5/php-sse/blob/master/LICENSE)

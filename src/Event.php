@@ -1,5 +1,7 @@
 <?php
 
+namespace Hhxsv5\SSE;
+
 class Event
 {
     protected $id;

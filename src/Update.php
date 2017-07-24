@@ -1,4 +1,6 @@
 <?php
+namespace Hhxsv5\SSE;
+
 class Update
 {
     /**
