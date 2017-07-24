@@ -1,5 +1,5 @@
 {
-  "name": "hhxsv5/sse",
+  "name": "hhxsv5/php-sse",
   "type": "library",
   "license": "MIT",
   "description": "A simple and efficient library implemented server-sent events by PHP.",
