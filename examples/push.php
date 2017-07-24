@@ -1,7 +1,9 @@
 <?php
 include '../vendor/autoload.php';
+
 use Hhxsv5\SSE\SSE;
 use Hhxsv5\SSE\Update;
+
 //example: push messages to client
 
 header('Content-Type: text/event-stream');
@@ -11,10 +13,12 @@ header('X-Accel-Buffering: no');//Nginx: unbuffered responses suitable for Comet
 
 (new SSE())->start(new Update(function () {
     $id = mt_rand(1, 1000);
-    $newMsgs = [['id'      => $id,
-                 'title'   => 'title' . $id,
-                 'content' => 'content' . $id,
-    ],
+    $newMsgs = [
+        [
+            'id'      => $id,
+            'title'   => 'title' . $id,
+            'content' => 'content' . $id,
+        ],
     ];//get data from database or servcie.
     if (!empty($newMsgs)) {
         return json_encode(['newMsgs' => $newMsgs]);
