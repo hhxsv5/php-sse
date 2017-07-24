@@ -1,4 +1,5 @@
 <?php
+
 namespace Hhxsv5\SSE;
 
 class SSE
@@ -12,7 +13,7 @@ class SSE
                     'id'    => uniqid(),
                     'type'  => $eventType,
                     'data'  => (string)$changedData,
-                    'retry' => 2000,//2秒后重连
+                    'retry' => 2000,//reconnect after 2s
                 ];
             } else {
                 $event = [

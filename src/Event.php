@@ -26,9 +26,9 @@ class Event
     public function __toString()
     {
         $event = [];
-        strlen($this->comment) > 0 AND $event[] = sprintf(': %s', $this->comment);//:注释
+        strlen($this->comment) > 0 AND $event[] = sprintf(': %s', $this->comment);//:comments
         strlen($this->id) > 0 AND $event[] = sprintf('id: %s', $this->id);
-        strlen($this->retry) > 0 AND $event[] = sprintf('retry: %s', $this->retry);//单位为毫秒
+        strlen($this->retry) > 0 AND $event[] = sprintf('retry: %s', $this->retry);//millisecond
         strlen($this->type) > 0 AND $event[] = sprintf('event: %s', $this->type);
         strlen($this->data) > 0 AND $event[] = sprintf('data: %s', $this->data);
         return implode("\n", $event) . "\n\n";

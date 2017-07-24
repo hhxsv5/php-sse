@@ -1,15 +1,16 @@
 <?php
+
 namespace Hhxsv5\SSE;
 
 class Update
 {
     /**
-     * @var callable 用于检查数据变更的回调函数
+     * @var callable This callback is used to check whether data changed
      */
     protected $updateCallback;
 
     /**
-     * @var int 检查的时间间隔(s)
+     * @var int interval(s) of check
      */
     protected $checkInterval;
 
@@ -19,17 +20,13 @@ class Update
         $this->checkInterval = $checkInterval;
     }
 
-    /**
-     * 获取检查的时间间隔
-     * @return int
-     */
     public function getCheckInterval()
     {
         return $this->checkInterval;
     }
 
     /**
-     * 获取变更的数据
+     * Get the changed data
      * @return mixed|false return false if no changed data
      */
     public function getUpdatedData()
