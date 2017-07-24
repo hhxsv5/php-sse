@@ -1,5 +1,7 @@
 <?php
 include '../vendor/autoload.php';
+use Hhxsv5\SSE\SSE;
+use Hhxsv5\SSE\Update;
 //example: push messages to client
 
 header('Content-Type: text/event-stream');
