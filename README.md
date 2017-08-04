@@ -39,7 +39,7 @@ source.addEventListener("new-msgs", function(event){
 ### PHP demo
 
 ```PHP
-include '../vendor/autoload.php';
+include './vendor/autoload.php';
 
 use Hhxsv5\SSE\SSE;
 use Hhxsv5\SSE\Update;
