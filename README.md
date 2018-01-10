@@ -1,7 +1,7 @@
 PHP SSE: Server-sent Events
 ======
 
-A simple and efficient library implemented server-sent events by PHP.
+A simple and efficient library implemented HTML5's server-sent events by PHP, is used to real-time push events from server to client, and easier than Websocket, instead of AJAX request.
 
 ## Requirements
 
@@ -27,6 +27,7 @@ php -S 127.0.0.1:9001 -t .
 ![Demo](https://raw.githubusercontent.com/hhxsv5/SSE/master/sse.png)
 
 ### Javascript demo
+>Client: receiving events from the server
 
 ```Javascript
 //withCredentials=true: pass the cross-domain cookies to server-side
@@ -37,6 +38,7 @@ source.addEventListener("new-msgs", function(event){
 ```
 
 ### PHP demo
+>Server: sending events from the server by pure php
 
 ```PHP
 include './vendor/autoload.php';
@@ -66,6 +68,7 @@ header('X-Accel-Buffering: no');//Nginx: unbuffered responses suitable for Comet
 ```
 
 ### Laravel demo
+>Server: sending events from the server by laravel
 
 ```PHP
 use Hhxsv5\SSE\SSE;
