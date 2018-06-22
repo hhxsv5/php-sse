@@ -10,7 +10,7 @@ class SSE
             $changedData = $update->getUpdatedData();
             if ($changedData !== false) {
                 $event = [
-                    'id'    => uniqid(),
+                    'id'    => uniqid('', true),
                     'type'  => $eventType,
                     'data'  => (string)$changedData,
                     'retry' => 2000,//reconnect after 2s
