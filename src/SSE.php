@@ -10,7 +10,7 @@ class SSE
             $changedData = $update->getUpdatedData();
             if ($changedData !== false) {
                 $event = [
-                    'id'    => uniqid(),
+                    'id'    => uniqid('', true),
                     'type'  => $eventType,
                     'data'  => (string)$changedData,
                     'retry' => 2000,//reconnect after 2s
@@ -23,6 +23,10 @@ class SSE
             echo new Event($event);
             ob_flush();
             flush();
+            // if the connection has been closed by the client we better exit the loop
+            if (connection_aborted()) {
+                return;
+            }
             sleep($update->getCheckInterval());
         }
     }
