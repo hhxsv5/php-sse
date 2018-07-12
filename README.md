@@ -67,8 +67,8 @@ header('X-Accel-Buffering: no');//Nginx: unbuffered responses suitable for Comet
 }), 'new-msgs');
 ```
 
-### Laravel demo
->Server: sending events from the server by laravel
+### Symfony and Laravel demo
+>Server: sending events from the server by Laravel or Symdony
 
 ```PHP
 use Hhxsv5\SSE\SSE;
