@@ -4,7 +4,7 @@ namespace Hhxsv5\SSE;
 
 class SSE
 {
-    public function start(Update $update, $eventType = null)
+    public function start(Update $update, $eventType = null, int $milliRetry = 2000)
     {
         while (true) {
             $changedData = $update->getUpdatedData();
@@ -13,7 +13,7 @@ class SSE
                     'id'    => uniqid('', true),
                     'type'  => $eventType,
                     'data'  => (string)$changedData,
-                    'retry' => 2000,//reconnect after 2s
+                    'retry' => $milliRetry,
                 ];
             } else {
                 $event = [
