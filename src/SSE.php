@@ -4,7 +4,7 @@ namespace Hhxsv5\SSE;
 
 class SSE
 {
-    public function start(Update $update, $eventType = null, int $milliRetry = 2000)
+    public function start(Update $update, $eventType = null, $milliRetry = 2000)
     {
         while (true) {
             $changedData = $update->getUpdatedData();
