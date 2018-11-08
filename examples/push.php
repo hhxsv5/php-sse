@@ -19,7 +19,7 @@ header('X-Accel-Buffering: no');//Nginx: unbuffered responses suitable for Comet
             'title'   => 'title' . $id,
             'content' => 'content' . $id,
         ],
-    ];//get data from database or servcie.
+    ];//get data from database or service.
     if (!empty($newMsgs)) {
         return json_encode(['newMsgs' => $newMsgs]);
     }

@@ -59,7 +59,7 @@ header('X-Accel-Buffering: no');//Nginx: unbuffered responses suitable for Comet
             'title'   => 'title' . $id,
             'content' => 'content' . $id,
         ],
-    ];//get data from database or servcie.
+    ];//get data from database or service.
     if (!empty($newMsgs)) {
         return json_encode(['newMsgs' => $newMsgs]);
     }
@@ -85,7 +85,7 @@ public function newMsgs()
     $response->setCallback(function () {
         (new SSE())->start(new Update(function () {
             $id = mt_rand(1, 1000);
-            $newMsgs = [['id' => $id, 'title' => 'title' . $id, 'content' => 'content' . $id]];//get data from database or servcie.
+            $newMsgs = [['id' => $id, 'title' => 'title' . $id, 'content' => 'content' . $id]];//get data from database or service.
             if (!empty($newMsgs)) {
                 return json_encode(['newMsgs' => $newMsgs]);
             }
