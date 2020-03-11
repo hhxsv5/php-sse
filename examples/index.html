@@ -7,9 +7,9 @@
 <h1>SSE example</h1>
 <div id="news-list"></div>
 <script type="application/javascript">
-    var newsList = document.getElementById('news-list');
+    const newsList = document.getElementById('news-list');
     if (typeof (EventSource) !== 'undefined') {
-        var source = new EventSource('/push.php');
+        const source = new EventSource('/push.php');
         source.onopen = function (event) {
             console.log('onopen', event);
         };
@@ -21,6 +21,7 @@
         // };
         source.addEventListener('news', function (event) {
             newsList.innerHTML += event.data + '<br />';
+            // source.close(); // disconnect stream
         });
     } else {
         newsList.innerHTML = 'Sorry, your browser does not support server-sent events...';

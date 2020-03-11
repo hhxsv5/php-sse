@@ -31,9 +31,10 @@ php -S 127.0.0.1:9001 -t .
 
 ```Javascript
 // withCredentials=true: pass the cross-domain cookies to server-side
-var source = new EventSource('http://127.0.0.1:9001/push.php', {withCredentials:true});
+const source = new EventSource('http://127.0.0.1:9001/push.php', {withCredentials:true});
 source.addEventListener('news', function(event) {
     console.log(event.data);
+    // source.close(); // disconnect stream
 }, false);
 ```
 
