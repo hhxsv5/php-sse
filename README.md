@@ -27,7 +27,7 @@ php -S 127.0.0.1:9001 -t .
 ![Demo](https://raw.githubusercontent.com/hhxsv5/SSE/master/sse.png)
 
 ### Javascript demo
->Client: receiving events from the server
+> Client: receiving events from the server.
 
 ```Javascript
 //withCredentials=true: pass the cross-domain cookies to server-side
@@ -38,59 +38,55 @@ source.addEventListener("new-msgs", function(event){
 ```
 
 ### PHP demo
->Server: sending events from the server by pure php
+> Server: sending events from the server by pure php.
 
 ```PHP
-include './vendor/autoload.php';
+include '../vendor/autoload.php';
 
 use Hhxsv5\SSE\SSE;
 use Hhxsv5\SSE\Update;
+
+// Example: push messages to client
 
 header('Content-Type: text/event-stream');
 header('Cache-Control: no-cache');
 header('Connection: keep-alive');
-header('X-Accel-Buffering: no');//Nginx: unbuffered responses suitable for Comet and HTTP streaming applications
+header('X-Accel-Buffering: no'); // Nginx: unbuffered responses suitable for Comet and HTTP streaming applications
 
 (new SSE())->start(new Update(function () {
     $id = mt_rand(1, 1000);
-    $newMsgs = [
-        [
-            'id'      => $id,
-            'title'   => 'title' . $id,
-            'content' => 'content' . $id,
-        ],
-    ];//get data from database or service.
-    if (!empty($newMsgs)) {
-        return json_encode(['newMsgs' => $newMsgs]);
+    $news = [['id' => $id, 'title' => 'title ' . $id, 'content' => 'content ' . $id]]; // Get news from database or service.
+    if (!empty($news)) {
+        return json_encode(compact('news'));
     }
-    return false;//return false if no new messages
-}), 'new-msgs');
+    return false; // Return false if no new messages
+}), 'news');
 ```
 
 ### Symfony and Laravel demo
->Server: sending events from the server by Laravel or Symfony
+> Server: sending events from the server by Laravel or Symfony.
 
 ```PHP
 use Hhxsv5\SSE\SSE;
 use Hhxsv5\SSE\Update;
 
-//Action method in the controller
-public function newMsgs()
+// Action method in controller
+public function getNewsStream()
 {
     $response = new \Symfony\Component\HttpFoundation\StreamedResponse();
     $response->headers->set('Content-Type', 'text/event-stream');
     $response->headers->set('Cache-Control', 'no-cache');
     $response->headers->set('Connection', 'keep-alive');
-    $response->headers->set('X-Accel-Buffering', 'no');//Nginx: unbuffered responses suitable for Comet and HTTP streaming applications
+    $response->headers->set('X-Accel-Buffering', 'no'); // Nginx: unbuffered responses suitable for Comet and HTTP streaming applications
     $response->setCallback(function () {
         (new SSE())->start(new Update(function () {
             $id = mt_rand(1, 1000);
-            $newMsgs = [['id' => $id, 'title' => 'title' . $id, 'content' => 'content' . $id]];//get data from database or service.
-            if (!empty($newMsgs)) {
-                return json_encode(['newMsgs' => $newMsgs]);
+            $news = [['id' => $id, 'title' => 'title ' . $id, 'content' => 'content ' . $id]]; // Get news from database or service.
+            if (!empty($news)) {
+                return json_encode(compact('news'));
             }
-            return false;//return false if no new messages
-        }), 'new-msgs');
+            return false; // Return false if no new messages
+        }), 'news');
     });
     return $response;
 }

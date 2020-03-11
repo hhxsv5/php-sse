@@ -5,8 +5,9 @@
 </head>
 <body>
 <h1>SSE example</h1>
-<div id="result"></div>
-<script>
+<div id="news-list"></div>
+<script type="application/javascript">
+    var newsList = document.getElementById('news-list');
     if (typeof (EventSource) !== 'undefined') {
         var source = new EventSource('/push.php');
         source.onopen = function (event) {
@@ -16,13 +17,13 @@
             console.log('onerror', event);
         };
         // source.onmessage = function(event) {
-        // 	document.getElementById('result').innerHTML += event.data + '<br />';
+        // 	newsList.innerHTML += event.data + '<br />';
         // };
-        source.addEventListener('new-msgs', function (event) {
-            document.getElementById('result').innerHTML += event.data + '<br />';
+        source.addEventListener('news', function (event) {
+            newsList.innerHTML += event.data + '<br />';
         });
     } else {
-        document.getElementById('result').innerHTML = 'Sorry, your browser does not support server-sent events...';
+        newsList.innerHTML = 'Sorry, your browser does not support server-sent events...';
     }
 </script>
 </body>
