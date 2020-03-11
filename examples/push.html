@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>SSE example</title>
 </head>
@@ -8,7 +8,7 @@
 <div id="result"></div>
 <script>
     if (typeof (EventSource) !== 'undefined') {
-        var source = new EventSource("push.php");
+        var source = new EventSource('/push.php');
         source.onopen = function (event) {
             console.log('onopen', event);
         };
@@ -16,13 +16,13 @@
             console.log('onerror', event);
         };
         // source.onmessage = function(event) {
-        // 	document.getElementById("result").innerHTML += event.data + "<br />";
+        // 	document.getElementById('result').innerHTML += event.data + '<br />';
         // };
         source.addEventListener('new-msgs', function (event) {
-            document.getElementById("result").innerHTML += event.data + "<br />";
+            document.getElementById('result').innerHTML += event.data + '<br />';
         });
     } else {
-        document.getElementById("result").innerHTML = 'Sorry, your browser does not support server-sent events...';
+        document.getElementById('result').innerHTML = 'Sorry, your browser does not support server-sent events...';
     }
 </script>
 </body>
