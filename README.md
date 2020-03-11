@@ -24,7 +24,7 @@ php -S 127.0.0.1:9001 -t .
 
 - Open url `http://127.0.0.1:9001/index.html`
 
-![Demo](https://github.com/hhxsv5/php-sse/blob/master/sse.png)
+![Demo](https://raw.githubusercontent.com/hhxsv5/php-sse/master/sse.png)
 
 ### Javascript demo
 > Client: receiving events from the server.
