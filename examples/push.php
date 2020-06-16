@@ -4,7 +4,7 @@ include '../vendor/autoload.php';
 use Hhxsv5\SSE\SSE;
 use Hhxsv5\SSE\Update;
 
-// Example: push messages to client
+// PHP-FPM SSE Example: push messages to client
 
 header('Content-Type: text/event-stream');
 header('Cache-Control: no-cache');
