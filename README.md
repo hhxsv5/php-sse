@@ -98,10 +98,13 @@ public function getNewsStream()
 ```php
 use Hhxsv5\SSE\SSESwoole;
 use Hhxsv5\SSE\Update;
+use Swoole\Http\Request;
+use Swoole\Http\Response;
+use Swoole\Http\Server;
 
 // Swoole SSE Example: push messages to client
 
-$server = new Swoole\Http\Server('0.0.0.0', 5200);
+$server = new Server('0.0.0.0', 5200);
 $server->set([
     'enable_coroutine'   => true,
     'max_coroutine'      => 10000, // worker_num*10000
@@ -112,7 +115,7 @@ $server->set([
     'log_level'          => SWOOLE_LOG_WARNING,
     'log_file'           => __DIR__ . '/swoole.log',
 ]);
-$server->on('Request', function (Swoole\Http\Request $request, Swoole\Http\Response $response) use ($server) {
+$server->on('Request', function (Request $request, Response $response) use ($server) {
     // $response->header('Access-Control-Allow-Origin', '*');
     $response->header('Content-Type', 'text/event-stream');
     $response->header('Cache-Control', 'no-cache');
