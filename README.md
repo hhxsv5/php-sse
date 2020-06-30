@@ -10,7 +10,7 @@ A simple and efficient library implemented HTML5's server-sent events by PHP, is
 ## Installation via Composer([packagist](https://packagist.org/packages/hhxsv5/php-sse))
 
 ```BASH
-composer require "hhxsv5/php-sse:~1.0" -vvv
+composer require "hhxsv5/php-sse:~2.0" -vvv
 ```
 
 ## Usage
