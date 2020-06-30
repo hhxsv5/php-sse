@@ -1,8 +1,8 @@
 <?php
 include '../vendor/autoload.php';
 
+use Hhxsv5\SSE\Event;
 use Hhxsv5\SSE\SSESwoole;
-use Hhxsv5\SSE\Update;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Swoole\Http\Server;
@@ -20,20 +20,23 @@ $server->set([
     'log_level'          => SWOOLE_LOG_WARNING,
     'log_file'           => __DIR__ . '/swoole.log',
 ]);
+
 $server->on('Request', function (Request $request, Response $response) use ($server) {
-    // $response->header('Access-Control-Allow-Origin', '*');
+    $response->header('Access-Control-Allow-Origin', '*');
     $response->header('Content-Type', 'text/event-stream');
     $response->header('Cache-Control', 'no-cache');
     $response->header('Connection', 'keep-alive');
     $response->header('X-Accel-Buffering', 'no');
 
-    (new SSESwoole($request, $response))->start(new Update(function () {
+    $event = new Event(function () {
         $id = mt_rand(1, 1000);
         $news = [['id' => $id, 'title' => 'title ' . $id, 'content' => 'content ' . $id]]; // Get news from database or service.
         if (empty($news)) {
             return false; // Return false if no new messages
         }
         return json_encode(compact('news'));
-    }), 'news');
+        // return ['id' => uniqid(), 'data' => json_encode(compact('news'))]; // Custom event Id
+    }, 'news');
+    (new SSESwoole($event, $request, $response))->start(3);
 });
 $server->start();

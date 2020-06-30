@@ -9,7 +9,7 @@
 <script type="application/javascript">
     const newsList = document.getElementById('news-list');
     if (typeof (EventSource) !== 'undefined') {
-        const source = new EventSource('/push.php');
+        const source = new EventSource('/sse.php');
         // const source = new EventSource('http://127.0.0.1:5200/');
         source.onopen = function (event) {
             console.log('onopen', event);

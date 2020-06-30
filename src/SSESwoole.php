@@ -6,39 +6,31 @@ use Swoole\Coroutine;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
 
-class SSESwoole
+class SSESwoole extends SSE
 {
     protected $request;
     protected $response;
 
-    public function __construct(Request $request, Response $response)
+    public function __construct(Event $event, Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
+        parent::__construct($event);
     }
 
-    public function start(Update $update, $eventType = null, $milliRetry = 2000)
+    /**
+     * Start SSE Server
+     * @param int $interval
+     */
+    public function start($interval = 3)
     {
         while (true) {
-            $changedData = $update->getUpdatedData();
-            if ($changedData !== false) {
-                $event = [
-                    'id'    => uniqid('', true),
-                    'type'  => $eventType,
-                    'data'  => (string)$changedData,
-                    'retry' => $milliRetry,
-                ];
-            } else {
-                $event = [
-                    'comment' => 'no update',
-                ];
-            }
-            $success = $this->response->write(new Event($event));
+            $success = $this->response->write($this->event->fill());
             if (!$success) {
                 $this->response->end();
                 return;
             }
-            Coroutine::sleep($update->getCheckInterval());
+            Coroutine::sleep($interval);
         }
     }
 }
