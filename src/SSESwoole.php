@@ -25,7 +25,12 @@ class SSESwoole extends SSE
     public function start($interval = 3)
     {
         while (true) {
-            $success = $this->response->write($this->event->fill());
+            try {
+                $success = $this->response->write($this->event->fill());
+            } catch (StopSSEException $e) {
+                $this->response->end();
+                return;
+            }
             if (!$success) {
                 $this->response->end();
                 return;

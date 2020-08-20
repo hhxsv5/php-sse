@@ -3,6 +3,7 @@ include '../vendor/autoload.php';
 
 use Hhxsv5\SSE\Event;
 use Hhxsv5\SSE\SSESwoole;
+use Hhxsv5\SSE\StopSSEException;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Swoole\Http\Server;
@@ -33,6 +34,10 @@ $server->on('Request', function (Request $request, Response $response) use ($ser
         $news = [['id' => $id, 'title' => 'title ' . $id, 'content' => 'content ' . $id]]; // Get news from database or service.
         if (empty($news)) {
             return false; // Return false if no new messages
+        }
+        $shouldStop = false; // Stop if something happens or to clear connection, browser will retry
+        if ($shouldStop) {
+            throw new StopSSEException();
         }
         return json_encode(compact('news'));
         // return ['id' => uniqid(), 'data' => json_encode(compact('news'))]; // Custom event Id
