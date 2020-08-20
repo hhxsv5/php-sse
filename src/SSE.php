@@ -13,12 +13,16 @@ class SSE
 
     /**
      * Start SSE Server
-     * @param int $interval
+     * @param int $interval in seconds
      */
     public function start($interval = 3)
     {
         while (true) {
-            echo $this->event->fill();
+            try {
+                echo $this->event->fill();
+            } catch (StopSSEException $e) {
+                return;
+            }
             ob_flush();
             flush();
             // if the connection has been closed by the client we better exit the loop
@@ -28,5 +32,4 @@ class SSE
             sleep($interval);
         }
     }
-
 }

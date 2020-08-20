@@ -30,10 +30,16 @@ class Event
     protected $comment;
 
     /**
-     * @var callable The callback to get event data
+     * @var callable The callback to get event data. Throw a {@see StopSSEException} to stop the execution, browser will retry after {@see $retry}
      */
     protected $callback;
 
+    /**
+     * Event constructor.
+     * @param callable $callback {@see Event::$callback}
+     * @param string   $event    {@see Event::$event}
+     * @param int      $retry    {@see Event::$retry}
+     */
     public function __construct(callable $callback, $event = '', $retry = 5000)
     {
         $this->callback = $callback;
@@ -47,6 +53,7 @@ class Event
     /**
      * Fill the event data & id
      * @return $this
+     * @throws StopSSEException
      */
     public function fill()
     {
