@@ -59,7 +59,7 @@ $callback = function () {
     if (empty($news)) {
         return false; // Return false if no new messages
     }
-    $shouldStop = false;
+    $shouldStop = false; // Stop if something happens or to clear connection, browser will retry
     if ($shouldStop) {
         throw new StopSSEException();
     }
@@ -92,7 +92,7 @@ public function getNewsStream()
             if (empty($news)) {
                 return false; // Return false if no new messages
             }
-            $shouldStop = false;
+            $shouldStop = false; // Stop if something happens or to clear connection, browser will retry
             if ($shouldStop) {
                 throw new StopSSEException();
             }
@@ -144,7 +144,7 @@ $server->on('Request', function (Request $request, Response $response) use ($ser
         if (empty($news)) {
             return false; // Return false if no new messages
         }
-        $shouldStop = false;
+        $shouldStop = false; // Stop if something happens or to clear connection, browser will retry
         if ($shouldStop) {
             throw new StopSSEException();
         }
