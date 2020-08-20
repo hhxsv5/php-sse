@@ -44,6 +44,7 @@ source.addEventListener('news', function(event) {
 ```PHP
 use Hhxsv5\SSE\Event;
 use Hhxsv5\SSE\SSE;
+use Hhxsv5\SSE\StopSSEException;
 
 // PHP-FPM SSE Example: push messages to client
 
@@ -58,6 +59,10 @@ $callback = function () {
     if (empty($news)) {
         return false; // Return false if no new messages
     }
+    $shouldStop = false;
+    if ($shouldStop) {
+        throw new StopSSEException();
+    }
     return json_encode(compact('news'));
     // return ['id' => uniqid(), 'data' => json_encode(compact('news'))]; // Custom event Id
 };
@@ -70,6 +75,7 @@ $callback = function () {
 ```PHP
 use Hhxsv5\SSE\SSE;
 use Hhxsv5\SSE\Event;
+use Hhxsv5\SSE\StopSSEException;
 
 // Action method in controller
 public function getNewsStream()
@@ -85,6 +91,10 @@ public function getNewsStream()
             $news = [['id' => $id, 'title' => 'title ' . $id, 'content' => 'content ' . $id]]; // Get news from database or service.
             if (empty($news)) {
                 return false; // Return false if no new messages
+            }
+            $shouldStop = false;
+            if ($shouldStop) {
+                throw new StopSSEException();
             }
             return json_encode(compact('news'));
             // return ['id' => uniqid(), 'data' => json_encode(compact('news'))]; // Custom event Id
@@ -105,6 +115,7 @@ use Hhxsv5\SSE\SSESwoole;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Swoole\Http\Server;
+use Hhxsv5\SSE\StopSSEException;
 
 // Swoole SSE Example: push messages to client
 
@@ -132,6 +143,10 @@ $server->on('Request', function (Request $request, Response $response) use ($ser
         $news = [['id' => $id, 'title' => 'title ' . $id, 'content' => 'content ' . $id]]; // Get news from database or service.
         if (empty($news)) {
             return false; // Return false if no new messages
+        }
+        $shouldStop = false;
+        if ($shouldStop) {
+            throw new StopSSEException();
         }
         return json_encode(compact('news'));
         // return ['id' => uniqid(), 'data' => json_encode(compact('news'))]; // Custom event Id
