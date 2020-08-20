@@ -19,7 +19,9 @@ class SSE
     {
         while (true) {
             echo $this->event->fill();
-            ob_flush();
+            if(ob_get_level() > 0) {
+                ob_flush();
+            }
             flush();
             // if the connection has been closed by the client we better exit the loop
             if (connection_aborted()) {
