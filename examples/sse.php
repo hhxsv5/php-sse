@@ -27,4 +27,4 @@ $callback = function () {
     // return ['event' => 'ping', 'data' => 'ping data']; // Custom event temporarily: send ping event
     // return ['id' => uniqid(), 'data' => json_encode(compact('news'))]; // Custom event Id
 };
-(new SSE(new Event($callback, 'news')))->start(3);
+(new SSE(new Event($callback, 'news')))->start();
