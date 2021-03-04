@@ -1,7 +1,8 @@
 PHP SSE: Server-sent Events
 ======
 
-A simple and efficient library implemented HTML5's server-sent events by PHP, is used to real-time push events from server to client, and easier than Websocket, instead of AJAX request.
+A simple and efficient library implemented HTML5's server-sent events by PHP, is used to real-time push events from server to client, and easier than
+Websocket, instead of AJAX request.
 
 ## Requirements
 
@@ -14,9 +15,11 @@ composer require "hhxsv5/php-sse:~2.0" -vvv
 ```
 
 ## Usage
+
 ### Run demo
 
 - Run PHP webserver
+
 ```Bash
 cd examples
 php -S 127.0.0.1:9001 -t .
@@ -27,18 +30,20 @@ php -S 127.0.0.1:9001 -t .
 ![Demo](https://raw.githubusercontent.com/hhxsv5/php-sse/master/sse.png)
 
 ### Javascript demo
+
 > Client: receiving events from the server.
 
 ```Javascript
 // withCredentials=true: pass the cross-domain cookies to server-side
-const source = new EventSource('http://127.0.0.1:9001/sse.php', {withCredentials:true});
-source.addEventListener('news', function(event) {
+const source = new EventSource('http://127.0.0.1:9001/sse.php', {withCredentials: true});
+source.addEventListener('news', function (event) {
     console.log(event.data);
     // source.close(); // disconnect stream
 }, false);
 ```
 
 ### PHP demo
+
 > Server: Sending events by pure php.
 
 ```PHP
@@ -64,12 +69,14 @@ $callback = function () {
         throw new StopSSEException();
     }
     return json_encode(compact('news'));
+    // return ['event' => 'ping', 'data' => 'ping data']; // Custom event temporarily: send ping event
     // return ['id' => uniqid(), 'data' => json_encode(compact('news'))]; // Custom event Id
 };
 (new SSE(new Event($callback, 'news')))->start(3);
 ```
 
 ### Symfony and Laravel demo
+
 > Server: Sending events by Laravel or Symfony.
 
 ```PHP
@@ -97,6 +104,7 @@ public function getNewsStream()
                 throw new StopSSEException();
             }
             return json_encode(compact('news'));
+            // return ['event' => 'ping', 'data' => 'ping data']; // Custom event temporarily: send ping event
             // return ['id' => uniqid(), 'data' => json_encode(compact('news'))]; // Custom event Id
         };
         (new SSE(new Event($callback, 'news')))->start(3);
@@ -106,6 +114,7 @@ public function getNewsStream()
 ```
 
 ### Swoole demo
+
 > Server: Sending events by Swoole Coroutine Http Server.
 > Install [Swoole](https://github.com/swoole/swoole-src) 4.5.x: `pecl install swoole`.
 
@@ -149,9 +158,10 @@ $server->on('Request', function (Request $request, Response $response) use ($ser
             throw new StopSSEException();
         }
         return json_encode(compact('news'));
+        // return ['event' => 'ping', 'data' => 'ping data']; // Custom event temporarily: send ping event
         // return ['id' => uniqid(), 'data' => json_encode(compact('news'))]; // Custom event Id
     }, 'news');
-    (new SSESwoole($event, $request, $response))->start(3);
+    (new SSESwoole($event, $request, $response))->start();
 });
 $server->start();
 ```

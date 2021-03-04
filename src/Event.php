@@ -15,6 +15,11 @@ class Event
     protected $event;
 
     /**
+     * @var string The initial $event
+     */
+    protected $initialEvent;
+
+    /**
      * @var string The data field for the message. When the EventSource receives multiple consecutive lines that begin with data:, it will concatenate them, inserting a newline character between each one. Trailing newlines are removed.
      */
     protected $data;
@@ -37,15 +42,15 @@ class Event
     /**
      * Event constructor.
      * @param callable $callback {@see Event::$callback}
-     * @param string   $event    {@see Event::$event}
-     * @param int      $retry    {@see Event::$retry}
+     * @param string $event {@see Event::$event}
+     * @param int $retry {@see Event::$retry}
      */
     public function __construct(callable $callback, $event = '', $retry = 5000)
     {
         $this->callback = $callback;
         $this->id = '';
         $this->data = '';
-        $this->event = $event;
+        $this->initialEvent = $this->event = $event;
         $this->retry = $retry;
         $this->comment = '';
     }
@@ -57,15 +62,19 @@ class Event
      */
     public function fill()
     {
+        $this->event = $this->initialEvent;
         $result = call_user_func($this->callback);
         if ($result === false) {
             $this->id = '';
             $this->data = '';
             $this->comment = 'no data';
         } else {
+            if (isset($result['event'])) {
+                $this->event = $result['event'];
+            }
             $this->id = isset($result['id']) ? $result['id'] : str_replace('.', '', uniqid('', true));
             $this->data = isset($result['data']) ? $result['data'] : $result;
-            $this->comment = '';
+            $this->comment = isset($result['comment']) ? $result['comment'] : '';
         }
         return $this;
     }
